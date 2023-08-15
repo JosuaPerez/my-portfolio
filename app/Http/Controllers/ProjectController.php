@@ -8,6 +8,7 @@ use App\Models\Skill;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -40,7 +41,7 @@ class ProjectController extends Controller
     {
         $request->validate([
             'image' => ['required', 'image'],
-            'name' => ['required', 'min:5'],
+            'name' => ['required', 'min:3'],
             'skill_id' => ['required'],
         ]);
 
@@ -54,41 +55,57 @@ class ProjectController extends Controller
                 'project_url' => $request->project_url,
             ]);
 
-            return Redirect::route('projects.index');
+            return Redirect::route('projects.index')->with('message', 'Project created successfully');
         }
 
         return Redirect::back();
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Project $project): Response
     {
-        //
+        $skills = Skill::all();
+        return Inertia::render('Projects/Edit', compact('project', 'skills'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Project $project): RedirectResponse
     {
-        //
+        $image = $project->image;
+
+        $request->validate([
+            'name' => ['required', 'min:3'],
+            'skill_id' => ['required'],
+        ]);
+
+        if ($request->hasFile('image')){
+            Storage::delete($project->image);
+
+            $image = $request->file('image')->store('projects');
+        }
+
+        $project->update([
+            'name' => $request->name,
+            'skill_id' => $request->skill_id,
+            'project_url' => $request->project_url,
+            'image' => $image
+        ]);
+
+        return Redirect::route('projects.index')->with('message', 'Project updated successfully');;
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Project $project): RedirectResponse
     {
-        //
+        Storage::delete($project->image);
+        $project->delete();
+
+        return Redirect::back()->with('message', 'Project delete');;
     }
 }

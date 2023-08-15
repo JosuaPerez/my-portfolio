@@ -8,31 +8,31 @@ defineProps({
 </script>
 
 <template>
-  <Head title="Projects"/>
+    <Head title="Projects"/>
 
-  <AuthenticatedLayout>
-    <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">Projects</h2>
-    </template>
+    <AuthenticatedLayout>
+        <template #header>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Projects</h2>
+        </template>
 
-    <div class="py-12">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="flex justify-end m-2 p-2">
-          <Link
-              :href="route('projects.create')"
-              class="
-                px-4
-                py-2
-                bg-indigo-500
-                hover:bg-indigo-700
-                text-white
-                rounded-md"
-          >
-            New project
-          </Link>
-        </div>
+        <div class="py-12">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="flex justify-end m-2 p-2">
+                    <Link
+                        :href="route('projects.create')"
+                        class="
+                            px-4
+                            py-2
+                            bg-indigo-500
+                            hover:bg-indigo-700
+                            text-white
+                            rounded-md"
+                    >
+                        New project
+                    </Link>
+                </div>
 
-          <div class="relative overflow-x-auto">
+                <div class="relative overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                         <tr>
@@ -73,15 +73,28 @@ defineProps({
                                 <img class="w-11 h-11" :src="project.image"/>
                             </td>
                             <td class="px-6 py-4">
-                                delete/edit
+                                <Link
+                                    :href="route('projects.edit', project.id)"
+                                    class="font-medium text-blue-500 hover:text-blue-700 mr-2"
+                                >
+                                    Edit
+                                </Link>
+                                <Link
+                                    :href="route('projects.destroy', project.id)"
+                                    method="delete"
+                                    as="button"
+                                    type="button"
+                                    class="font-medium text-red-500 hover:text-red-700 mr-2"
+                                >
+                                    Delete
+                                </Link>
                             </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-
-      </div>
-    </div>
-  </AuthenticatedLayout>
+            </div>
+        </div>
+    </AuthenticatedLayout>
 </template>
 

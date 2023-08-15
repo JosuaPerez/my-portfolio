@@ -26,7 +26,7 @@ class SkillController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): Response
     {
         return Inertia::render('Skills/Create');
     }
@@ -49,7 +49,7 @@ class SkillController extends Controller
                 'image' => $image,
             ]);
 
-            return Redirect::route('skills.index');
+            return Redirect::route('skills.index')->with('message', 'Skill created successfully');;
         }
 
         return Redirect::back();
@@ -58,7 +58,7 @@ class SkillController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Skill $skill)
+    public function edit(Skill $skill): Response
     {
         return Inertia::render('Skills/Edit', compact('skill'));
     }
@@ -84,17 +84,17 @@ class SkillController extends Controller
             'image' => $image
         ]);
 
-        return Redirect::route('skills.index');
+        return Redirect::route('skills.index')->with('message', 'Skill updated successfully');;
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Skill $skill)
+    public function destroy(Skill $skill): RedirectResponse
     {
         Storage::delete($skill->image);
         $skill->delete();
 
-        return Redirect::back();
+        return Redirect::back()->with('message', 'Skill deleted');
     }
 }

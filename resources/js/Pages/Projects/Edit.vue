@@ -5,20 +5,28 @@ import TextInput from "@/Components/TextInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import InputError from "@/Components/InputError.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import {Inertia} from "@inertiajs/inertia";
 
-defineProps({
-    skills: Array
+const props = defineProps({
+    skills: Array,
+    project: Object
 })
 
 const form = useForm({
-    name: '',
+    name: props.project?.name,
     image: null,
-    skill_id: '',
-    project_url: ''
+    skill_id: props.project?.skill_id,
+    project_url: props.project?.project_url
 });
 
 const submit = () => {
-    form.post(route('projects.store'));
+    Inertia.post(`/projects/${props.project.id}`, {
+        _method: "put",
+        name: form.name,
+        image: form.image,
+        skill_id: form.skill_id,
+        project_url: form.project_url
+    })
 };
 </script>
 
@@ -53,13 +61,13 @@ const submit = () => {
                         >
                             <option
                                 v-for="skill in skills"
-                                :key="skill.id"
+                                key="skill.id"
                                 :value="skill.id"
                             >
                                 {{ skill.name }}
                             </option>
                         </select>
-                        <InputError class="mt-2" :message="form.errors.skill_id"/>
+                        <InputError class="mt-2" :message="$page.props.errors.skill_id"/>
                     </div>
                     <div>
                         <InputLabel for="name" value="Name"/>
@@ -74,7 +82,7 @@ const submit = () => {
                             autocomplete="name"
                         />
 
-                        <InputError class="mt-2" :message="form.errors.name"/>
+                        <InputError class="mt-2" :message="$page.props.errors.name"/>
                     </div>
 
                     <div>
@@ -88,7 +96,7 @@ const submit = () => {
                             autocomplete="projecturl"
                         />
 
-                        <InputError class="mt-2" :message="form.errors.project_url"/>
+                        <InputError class="mt-2" :message="$page.props.errors.project_url"/>
                     </div>
 
                     <div class="mt-2">
@@ -101,18 +109,17 @@ const submit = () => {
                             @input="form.image = $event.target.files[0]"
                         />
 
-                        <InputError class="mt-2" :message="form.errors.image"/>
+                        <InputError class="mt-2" :message="$page.props.errors.image"/>
                     </div>
 
                     <div class="flex items-center justify-end mt-4">
                         <PrimaryButton
                             class="ml-4"
-                            :class="{ 'opacity-25': form.processing }"
-                            :disabled="form.processing"
                         >
-                            Store
+                            Update
                         </PrimaryButton>
                     </div>
+
                 </form>
             </div>
         </div>
