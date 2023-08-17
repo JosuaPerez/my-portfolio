@@ -1,5 +1,6 @@
 import forms from '@tailwindcss/forms';
 const colors = require('tailwindcss/colors');
+const defaultTheme = require('tailwindcss/defaultTheme')
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -12,8 +13,8 @@ export default {
 
     theme: {
         fontFamily: {
-            primary: "Playfair Display",
-            body: "work Sans",
+            primary: ['Proxima Nova', ...defaultTheme.fontFamily.sans],
+            body: "sans-serif",
         },
         container: {
             padding: {
@@ -23,15 +24,15 @@ export default {
         },
         extend: {
             colors: {
-                "light-primary": "#F6F4EB",
-                "light-secondary": "#91C8E4",
-                "light-tail-100": "#749BC2",
-                "light-tail-500": "#4682A9",
+                "light-primary": "#FAF1E6",
+                "light-secondary": "#FDFAF6",
+                "light-tail-100": "#A9DED2",
+                "light-tail-500": "#54BAB9",
 
-                "dark-primary": "#272829",
-                "dark-secondary": "#61677A",
-                "dark-navy-100": "#D8D9DA",
-                "dark-navy-500": "#FFF6E0",
+                "dark-primary": "#050402",
+                "dark-secondary": "#1C1D24",
+                "dark-navy-100": "#07567D",
+                "dark-navy-500": "#292D42",
 
                 accentColor: {
                     DEFAULT: "#ac6b34",
