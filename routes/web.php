@@ -20,7 +20,10 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
+Route::group(['prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}']], function () {
+    Route::get('/pagina', [WelcomeController::class, 'welcome'])->name('welcome');
+});
+
 Route::post('/contact', ContactController::class)->name('contact');
 
 Route::middleware(['auth', 'verified'])->group(function () {

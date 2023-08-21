@@ -49,7 +49,7 @@ class SkillController extends Controller
                 'image' => $image,
             ]);
 
-            return Redirect::route('skills.index')->with('message', 'Skill created successfully');;
+            return Redirect::route('skills.index')->with('message', 'Skill created successfully');
         }
 
         return Redirect::back();
@@ -71,7 +71,7 @@ class SkillController extends Controller
         $image = $skill->image;
 
         $request->validate([
-            'name' => ['required', 'min:3']
+            'name' => ['required', 'min:3'],
         ]);
 
         if ($request->hasFile('image')) {
@@ -81,10 +81,10 @@ class SkillController extends Controller
 
         $skill->update([
             'name' => $request->name,
-            'image' => $image
+            'image' => $image,
         ]);
 
-        return Redirect::route('skills.index')->with('message', 'Skill updated successfully');;
+        return Redirect::route('skills.index')->with('message', 'Skill updated successfully');
     }
 
     /**

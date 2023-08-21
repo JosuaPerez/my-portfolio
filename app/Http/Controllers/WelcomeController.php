@@ -6,7 +6,6 @@ use App\Http\Resources\ProjectResource;
 use App\Http\Resources\SkillResource;
 use App\Models\Project;
 use App\Models\Skill;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 

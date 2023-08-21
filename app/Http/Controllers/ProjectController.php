@@ -67,6 +67,7 @@ class ProjectController extends Controller
     public function edit(Project $project): Response
     {
         $skills = Skill::all();
+
         return Inertia::render('Projects/Edit', compact('project', 'skills'));
     }
 
@@ -82,7 +83,7 @@ class ProjectController extends Controller
             'skill_id' => ['required'],
         ]);
 
-        if ($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             Storage::delete($project->image);
 
             $image = $request->file('image')->store('projects');
@@ -92,10 +93,10 @@ class ProjectController extends Controller
             'name' => $request->name,
             'skill_id' => $request->skill_id,
             'project_url' => $request->project_url,
-            'image' => $image
+            'image' => $image,
         ]);
 
-        return Redirect::route('projects.index')->with('message', 'Project updated successfully');;
+        return Redirect::route('projects.index')->with('message', 'Project updated successfully');
     }
 
     /**
@@ -106,6 +107,6 @@ class ProjectController extends Controller
         Storage::delete($project->image);
         $project->delete();
 
-        return Redirect::back()->with('message', 'Project delete');;
+        return Redirect::back()->with('message', 'Project delete');
     }
 }

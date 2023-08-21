@@ -8,6 +8,7 @@ import Skills from "@/Components/Frontend/Skills.vue";
 import Portfolio from "@/Components/Frontend/Portfolio.vue";
 import Services from "@/Components/Frontend/Services.vue";
 import ContactMe from "@/Components/Frontend/ContactMe.vue";
+import FloatingButton from "@/Components/Frontend/FloatingButton.vue";
 
 defineProps({
     skills: Object,
@@ -20,6 +21,7 @@ defineProps({
     <FrontendLayout>
     <!-- Hero primary -->
         <Hero />
+        <FloatingButton />
     <!-- Promote tail-100 -->
         <Promote />
     <!-- About secondary -->

@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Attachment;
@@ -37,15 +36,15 @@ class ContactMail extends Mailable
     /**
      * Get the message content definition.
      */
-    public function build(): ContactMail
+    public function content(): Content
     {
-        return $this->subject('Mail from Portfolio')
-            ->replyTo($this->email)
-            ->view('emails.contact');
-//        return new Content(
-//            view: 'emails.contact',
-//            text: 'emails.contact'
-//        );
+        //        return $this->subject('Mail from Portfolio')
+        //            ->replyTo($this->email)
+        //            ->view('emails.contact');
+        return new Content(
+            view: 'emails.contact',
+            text: 'emails.contact'
+        );
     }
 
     /**

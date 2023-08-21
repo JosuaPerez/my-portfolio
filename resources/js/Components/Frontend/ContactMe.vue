@@ -89,7 +89,7 @@ const submit = () => {
                         </div>
                     </div>
                 </div>
-                <form @submit.prevent="submit" class="space-y-8 w-full items-center max-w-md" action="">
+                <form @submit.prevent="submit" class="space-y-8 w-full items-center max-w-md" action="{{ route('sendEmail') }}">
                     <Transition>
                         <div v-if="showMessage"
                              class="m-2 p-4 bg-light-tail-500 dark:bg-dark-navy-100 text-light-secondary rounded-lg">
